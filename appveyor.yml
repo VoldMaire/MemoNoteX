@@ -8,9 +8,9 @@ build:
   parallel: true
   verbosity: minimal
 after_build:
-- cmd: MemoNoteX\packages\Tools.InnoSetup.5.5.6\tools\iscc "MemoNoteX\Install\installscriptMemoNote.iss"
+- cmd: packages\Tools.InnoSetup.5.5.6\tools\iscc "Install\installscriptMemoNote.iss"
 artifacts:
-- path: MemoNoteX\Install\Installer\
+- path: Install\Installer\
 deploy:
 - provider: GitHub
   release: memo-v.0.0.2
