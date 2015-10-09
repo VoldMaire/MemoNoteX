@@ -1,0 +1,22 @@
+version: 0.0.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+configuration: Release
+before_build:
+- ps: "nuget restore MemoNoteX\\MemoNoteX.sln\n\n$contentAssembly = Get-Content MemoNote\\SharedAssemblyInfo.cs\n\"'\"+$contentAssembly+\"'\" -match '\\[assembly: AssemblyVersion\\(\\\"(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+).(\\*)\\\"\\)\\]'\n$matchVar = $matches\n$versionNew = \"{0}.{1}.{2}\" -f $matchVar[\"major\"],$matchVar[\"minor\"],$matchVar[\"patch\"]\n\n\n$contentInstaller = Get-Content MemoNoteX\\Installer\\installscriptMemoNote.iss\n\"'\"+$contentInstaller+\"'\" -match '\\#define MyAppVersion \\\"(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+)\\\"'\n$matchVar1 = $matches\n$versionOld = \"{0}.{1}.{2}\" -f $matchVar1[\"major\"],$matchVar1[\"minor\"],$matchVar1[\"patch\"]\n\n\n(Get-Content MemoNoteX\\Installer\\installscriptMemoNote.iss) | \nForeach-Object {$_ -replace $versionOld,$versionNew}  | \nOut-File -Encoding UTF8 MemoNoteX\\Installer\\installscriptMemoNote.iss\n\n$contentCI = Get-Content appveyor.yml\n\"'\"+$contentCI+\"'\" -match 'release: MK-v(?<major>\\d+).(?<minor>\\d+).(?<patch>\\d+)'\n$matchVar2 = $matches\n$versionOldCI = \"{0}.{1}.{2}\" -f $matchVar2[\"major\"],$matchVar2[\"minor\"],$matchVar2[\"patch\"]\n\n(Get-Content appveyor.yml) | \nForeach-Object {$_ -replace $versionOldCI,$versionNew} | \nOut-File -Encoding UTF8 appveyor.yml"
+build:
+  parallel: true
+  verbosity: minimal
+after_build:
+- cmd: MemoNoteX\packages\Tools.InnoSetup.5.5.6\tools\iscc "MemoNoteX\Install\installscriptMemoNote.iss"
+artifacts:
+- path: MemoNoteX\Install\Installer\
+deploy:
+- provider: GitHub
+  release: memo-v.0.0.2
+  auth_token:
+    secure: 8e2bc45ec27d8e87fe3256f84ae84a23b7851dfb
+  on:
+    branch: master
+    configuration: Release
+    appveyor_repo_tag: true
