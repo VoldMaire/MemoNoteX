@@ -1,10 +1,4 @@
-;------------------------------------------------------------------------------
-;   Определяем некоторые константы
-;------------------------------------------------------------------------------
-
-; Имя приложения
 #define   Name       "MemoNote"
-; Версия приложения
 #define   Version    "0.0.3"
 ; Фирма-разработчик
 #define   Publisher  "Vold"
@@ -13,12 +7,9 @@
 ; Имя исполняемого модуля
 #define   ExeName    "MemoNote.exe"
 
-;****************************************************************
 [Setup]
 
-; Уникальный идентификатор приложения, 
-;сгенерированный через Tools -> Generate GUID
-AppId={{76B68066-F6E9-4B19-91EA-96ED9C0982C9}}
+AppId={{667DDB08-76CB-4DB6-B35D-D4B48F4AD8CB}}
 
 ; Прочая информация, отображаемая при установке
 AppName={#Name}
@@ -38,7 +29,7 @@ OutputDir=D:\Projects\STP\MemoNote
 OutputBaseFileName=test-setup
 
 ; Файл иконки
-SetupIconFile=D:\Projects\icon.ico
+SetupIconFile=icon.ico
 
 ; Параметры сжатия
 Compression=lzma
