@@ -1,4 +1,4 @@
-#define   Name       "MemoNote"
+п»ї#define   Name       "MemoNote"
 #define   Version    "0.0.3"
 ; Фирма-разработчик
 #define   Publisher  "Vold"
