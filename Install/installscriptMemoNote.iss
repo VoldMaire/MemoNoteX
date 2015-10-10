@@ -1,10 +1,10 @@
 #define   Name       "MemoNote"
 #define   Version    "0.0.3"
-; Фирма-разработчик
+
 #define   Publisher  "Vold"
-; Сафт фирмы разработчика
+
 #define   URL        "http://www.google.com"
-; Имя исполняемого модуля
+
 #define   ExeName    "MemoNote.exe"
 
 [Setup]
@@ -24,7 +24,7 @@ DefaultDirName={pf}\{#Name}
 DefaultGroupName={#Name}
 
 
-OutputDir=D:\Projects\STP\MemoNote
+OutputDir="..\MemoNote\Install\Installer"
 OutputBaseFileName=test-setup
 
 
