@@ -3,7 +3,7 @@ pull_requests:
   do_not_increment_build_number: true
 configuration: Release
 before_build:
-- ps: "Get-Content install\installscriptMemoNoteUnicode.iss"
+- ps: "Get-Content ..\install\installscriptMemoNoteUnicode.iss"
 build:
   parallel: true
   verbosity: minimal
