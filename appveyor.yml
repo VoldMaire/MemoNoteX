@@ -38,8 +38,8 @@ artifacts:
   type: WebDeployPackage
 deploy:
 - provider: GitHub
-  tag: memo-v$(appveyor_build_version)
-  release: memo-v$(appveyor_build_version)
+  tag: memo-v$(APPVEYOR_REPO_TAG_NAME)
+  release: memo-v$(APPVEYOR_REPO_TAG_NAME)
   description: Release from appveyor
   auth_token:
     secure: xIrGBqNeilnrDeNWj51TJbs8HuU15lD7R2xoyIa68Rwq/CSiyQS+Eaeudnkzwe82
