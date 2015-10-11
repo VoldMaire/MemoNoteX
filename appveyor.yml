@@ -7,18 +7,18 @@ before_build:
 
     $InstallScript = get-content Install\installscriptMemoNoteUnicode.iss
 
-    $VerFromAssemblyInfo[27][30]
+    $VerFromAssemblyInfo[26][27]
 
-    $i = 31
+    $i = 27
 
     $verString = ""
 
     do
     	{
-    	$verString = $verString + $VerFromAssemblyInfo[27][$i]
+    	$verString = $verString + $VerFromAssemblyInfo[26][$i]
     	$i = $i + 1
     	}
-    while($VerFromAssemblyInfo[27][$i] -ne ')')
+    while($VerFromAssemblyInfo[26][$i] -ne ')')
 
     $verString
 
