@@ -1,6 +1,6 @@
-﻿
+
 #define Name "MemoNote"
-#define Version "0.0.3"
+#define Version "1.0.0.0"
 #define Publisher "Vold"
 #define URL "http://www.google.com"
 #define ExeName "MemoNote.exe"
