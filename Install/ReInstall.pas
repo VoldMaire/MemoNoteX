@@ -1,20 +1,5 @@
-//-----------------------------------------------------------------------------------------------------------------------
-//block for searching .net framework
-//-----------------------------------------------------------------------------------------------------------------------
+
 function IsDotNetDetected(version: string; service: cardinal): boolean;
-// Indicates whether the specified version and service pack of the .NET Framework is installed.
-//
-// version -- Specify one of these strings for the required .NET Framework version:
-//    'v1.1.4322'     .NET Framework 1.1
-//    'v2.0.50727'    .NET Framework 2.0
-//    'v3.0'          .NET Framework 3.0
-//    'v3.5'          .NET Framework 3.5
-//    'v4\Client'     .NET Framework 4.0 Client Profile
-//    'v4\Full'       .NET Framework 4.0 Full Installation
-//
-// service -- Specify any non-negative integer for the required service pack level:
-//    0               No service packs required
-//    1, 2, etc.      Service pack 1, 2, etc. required
 var
     key: string;
     install, serviceCount: cardinal;
@@ -27,7 +12,6 @@ begin
     end else begin
         success := RegQueryDWordValue(HKLM, key, 'Install', install);
     end;
-    // .NET 4.0 uses value Servicing instead of SP
     if Pos('v4', version) = 1 then begin
         success := success and RegQueryDWordValue(HKLM, key, 'Servicing', serviceCount);
     end else begin
@@ -35,39 +19,19 @@ begin
     end;
     result := success and (install = 1) and (serviceCount >= service);
 end;
-//-----------------------------------------------------------------------------------------------------------------------
-//end of block
-//-----------------------------------------------------------------------------------------------------------------------
 
-
-//-----------------------------------------------------------------------------------------------------------------------
-//block for uninstall old version of app
-//-----------------------------------------------------------------------------------------------------------------------
 function GetUninstallString: string;
 var
   sUnInstPath: string;
   sUnInstallString: String;
 begin
   Result := '';
-  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{{3FA3B84B-1FCA-447D-9453-F197D37CC030}_is1'); //Your App GUID/ID
+  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{{667DDB08-76CB-4DB6-B35D-D4B48F4AD8CB}_is1'); //Your App GUID/ID
   sUnInstallString := '';
   if not RegQueryStringValue(HKLM, sUnInstPath, 'UninstallString', sUnInstallString) then
     RegQueryStringValue(HKCU, sUnInstPath, 'UninstallString', sUnInstallString);
   Result := sUnInstallString;
 end;
-
-function IsUpgrade: Boolean;
-begin
-  Result := (GetUninstallString() <> '');
-end;
-//-----------------------------------------------------------------------------------------------------------------------
-//end of block
-//-----------------------------------------------------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------------------------------------------------
-//InitializeSetup function that calls in installation script
-//-----------------------------------------------------------------------------------------------------------------------
 function InitializeSetup: Boolean;
 var
   V: Integer;
@@ -75,20 +39,19 @@ var
   sUnInstallString: string;
   ErrCode: integer;
 begin
-  Result := True; // in case when no previous version is found
-  if RegValueExists(HKEY_LOCAL_MACHINE,'Software\Microsoft\Windows\CurrentVersion\Uninstall\{3FA3B84B-1FCA-447D-9453-F197D37CC030}_is1', 'UninstallString') then  //Your App GUID/ID
+  Result := True;
+  if RegValueExists(HKEY_LOCAL_MACHINE,'Software\Microsoft\Windows\CurrentVersion\Uninstall\{667DDB08-76CB-4DB6-B35D-D4B48F4AD8CB}_is1', 'UninstallString') then  
   begin
-    V := MsgBox(ExpandConstant('WARNING! Old version of MemoNote is found on your computer. Do you want to uninstall it?'), mbInformation, MB_YESNO); //Custom Message if App installed
+    V := MsgBox(ExpandConstant('WARNING! Old version of MemoNote is found on your computer. Do you want to uninstall it?'), mbInformation, MB_YESNO); 
     if V = IDYES then
     begin
       sUnInstallString := GetUninstallString();
       sUnInstallString :=  RemoveQuotes(sUnInstallString);
       Exec(ExpandConstant(sUnInstallString), '', '', SW_SHOW, ewWaitUntilTerminated, iResultCode);
-      Result := True; //if you want to proceed after uninstall
-                //Exit; //if you want to quit after uninstall
+      Result := True;                
     end
     else
-      Result := False; //when older version present and not uninstalled
+      Result := False;
   end;
   if not IsDotNetDetected('v4\Client', 0) then 
 	begin
@@ -104,17 +67,5 @@ begin
 			result := false;		
     end 
   else  
-  (*begin    //uncomment to test
-        V := MsgBox('MemoNote requires Microsoft .NET Framework 4.0 Client Profile.'#13#13
-            'Please install Microsoft .NET Framework 4.0 and re-install this app.'#13
-            'Do you want to go to microsoft.com and download it now?', mbInformation, MB_YESNO);
-        if V = IDYES then
-		begin
-			ShellExec('open', 'http://www.microsoft.com/en-us/download/details.aspx?id=42643','', '', SW_SHOW, ewNoWait, ErrCode);
-			result := false;
-		end
-		else
-			result := false;		
-    end *)
     result := true;
 end;
