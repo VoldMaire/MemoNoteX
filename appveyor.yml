@@ -29,6 +29,7 @@ before_build:
     $InstallScript[2]
 
     $InstallScript | set-content Install\installscriptMemoNoteUnicode.iss
+-cmd: dir C:\projects\memonotex\MemoNote\
 build:
   verbosity: minimal
 after_build:
