@@ -18,3 +18,4 @@ deploy:
   artifact: MemoNote\Install\Installer.zip
   draft: false
   prerelease: false
+  skip_tags: true
