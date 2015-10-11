@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id>StyleCopPlus.MSBuild</id>
+    <version>4.7.49.5</version>
+    <title>StyleCopPlus.MSBuild</title>
+    <authors>Christopher Dresel</authors>
+    <owners>Christopher Dresel</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/Dresel/StyleCopPlus.MSBuild</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/dresel/StyleCopPlus.MSBuild/master/images/StyleCopPlusLogo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>StyleCopPlus.MSBuild integrates StyleCopPlus into the build process.
+
+This is just a simple Nuget that sets StyleCopAdditionalAddinPaths to the StyleCopPlus.dll folder. All regards to the corresponding authors.</description>
+    <releaseNotes>Corresponds to StyleCop+ 1.10</releaseNotes>
+    <tags>Build MSBuild StyleCop StyleCopPlus StyleCop+</tags>
+    <dependencies>
+      <dependency id="StyleCop.MSBuild" version="4.7.49.0" />
+    </dependencies>
+  </metadata>
+</package>
