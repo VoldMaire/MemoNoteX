@@ -10,7 +10,7 @@ artifacts:
   type: WebDeployPackage
 deploy:
 - provider: GitHub
-  tag: memo-v0.0.0
+  tag: memo-v$(appveyor_build_version)
   release: memo-v$(appveyor_build_version)
   description: Release from appveyor
   auth_token:
