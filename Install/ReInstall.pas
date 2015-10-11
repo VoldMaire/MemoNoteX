@@ -1,5 +1,5 @@
 
-function IsDotNetDetected(version: string; service: cardinal): boolean;
+function IsRequiredDotNetDetected(version: string; service: cardinal): boolean;
 var
     key: string;
     install, serviceCount: cardinal;
@@ -53,7 +53,7 @@ begin
     else
       Result := False;
   end;
-  if not IsDotNetDetected('v4\Client', 0) then 
+  if not IsRequiredDotNetDetected('v4\Client', 0) then 
 	begin
         V := MsgBox('MemoNote requires Microsoft .NET Framework 4.0 Client Profile.'#13#13
             'Please install Microsoft .NET Framework 4.0 and re-install this app.'#13
