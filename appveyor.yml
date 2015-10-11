@@ -18,5 +18,7 @@ deploy:
   artifact: MemoNote\Install\Installer.zip
   draft: false
   prerelease: false
-  skip_tags: true
+on:
+    branch: master
+    appveyor_repo_tag: true
   
