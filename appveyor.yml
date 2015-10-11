@@ -9,12 +9,3 @@ build:
   verbosity: minimal
 artifacts:
 - path: Install\Installer\
-deploy:
-- provider: GitHub
-  release: memo-v.0.0.40
-  auth_token:
-    secure: 8e2bc45ec27d8e87fe3256f84ae84a23b7851dfb
-  on:
-    branch: master
-    configuration: Release
-    appveyor_repo_tag: true
