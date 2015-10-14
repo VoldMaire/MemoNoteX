@@ -1,7 +1,7 @@
 version: 0.0.{build}
 before_build:
 - ps: >-
-    cd C:\projects\memonotex\MemoNote
+    cd C:\projects\memonotex
 
     $VerFromAssemblyInfo = get-content SharedAssemblyInfo.cs
 
@@ -35,6 +35,7 @@ before_build:
     $InstallScript | set-content Install\installscriptMemoNoteUnicode.iss
 
     Write-Host("Version was changed succes")
+
 build:
   verbosity: minimal
 after_build:
