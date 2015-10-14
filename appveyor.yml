@@ -1,26 +1,30 @@
 version: 0.0.{build}
 before_build:
 - ps: >-
-    cd C:\projects\memonotex
+    cd C:\projects\memonotex\MemoNote
 
     $VerFromAssemblyInfo = get-content SharedAssemblyInfo.cs
 
     $InstallScript = get-content Install\installscriptMemoNoteUnicode.iss
 
-    $VerFromAssemblyInfo[26][27]
+    $VerFromAssemblyInfo[27][30]
 
-    $i = 27
+    $i = 31
 
     $verString = ""
 
     do
     	{
-    	$verString = $verString + $VerFromAssemblyInfo[26][$i]
+    	$verString = $verString + $VerFromAssemblyInfo[27][$i]
     	$i = $i + 1
     	}
-    while($VerFromAssemblyInfo[26][$i] -ne ')')
+    while($VerFromAssemblyInfo[27][$i] -ne ')')
+
+    Write-Host("AssemblyInfo version is: ")
 
     $verString
+
+    Write-Host("ISS version is: ")
 
     $InstallScript[2]
 
@@ -29,6 +33,8 @@ before_build:
     $InstallScript[2]
 
     $InstallScript | set-content Install\installscriptMemoNoteUnicode.iss
+
+    Write-Host("Version was changed succes")
 build:
   verbosity: minimal
 after_build:
