@@ -16,7 +16,7 @@ DefaultDirName={pf}\{#Name}
 DefaultGroupName={#Name}
 OutputDir="..\MemoNote\Install\Installer"
 OutputBaseFileName=test-setup
-SetupIconFile=icon.ico
+SetupIconFile=MemoIco2.ico
 Compression=lzma
 SolidCompression=yes
 
