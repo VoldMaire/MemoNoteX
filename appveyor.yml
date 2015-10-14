@@ -9,7 +9,7 @@ before_build:
 
     $VerFromAssemblyInfo[26][27]
 
-    $i = 26
+    $i = 27
 
     $verString = ""
 
@@ -20,11 +20,7 @@ before_build:
     	}
     while($VerFromAssemblyInfo[26][$i] -ne ')')
 
-    Write-Host("AssemblyInfo version is: ")
-
     $verString
-
-    Write-Host("ISS version is: ")
 
     $InstallScript[2]
 
@@ -33,8 +29,6 @@ before_build:
     $InstallScript[2]
 
     $InstallScript | set-content Install\installscriptMemoNoteUnicode.iss
-
-    Write-Host("Version was changed succes")
 build:
   verbosity: minimal
 after_build:
