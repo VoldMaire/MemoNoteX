@@ -10,10 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MemoNote
+namespace MemoNote.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,12 +22,6 @@ namespace MemoNote
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            View.MainWindow mainWnd = new View.MainWindow();
-            mainWnd.Show();
         }
     }
 }

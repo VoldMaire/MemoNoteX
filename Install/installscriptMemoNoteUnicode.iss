@@ -1,11 +1,11 @@
 
 #define Name "MemoNote"
-#define Version "0.0.0.11"
+#define Version "0.0.0.16"
 #define Publisher "Vold"
 #define URL "http://www.google.com"
 #define ExeName "MemoNote.exe"
 [Setup]
-AppId={{667DDB08-76CB-4DB6-B35D-D4B48F4AD8CB}}
+AppId={{361E65A9-ABA7-44CA-A747-99B28252BA56}}
 AppName={#Name}
 AppVersion={#Version}
 AppPublisher={#Publisher}
@@ -36,7 +36,5 @@ Name: "{commondesktop}\{#Name}"; Filename: "{app}\{#ExeName}"; Tasks: desktopico
 [Code]
 #include "ReInstall.pas"
 
-[Run]
 
-Filename: {tmp}\dotNetFx40_Full_x86_x64.exe; Parameters: "/q:a /c:""install /l /q"""; Check: not IsRequiredDotNetDetected; StatusMsg: Microsoft Framework 4.0 is installed. Please wait...
 
