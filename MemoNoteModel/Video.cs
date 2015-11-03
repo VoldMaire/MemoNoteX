@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class Video : Media
+    public class Video : Media<Video>
     {
     }
 }

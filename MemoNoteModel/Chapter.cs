@@ -29,13 +29,14 @@ namespace MemoNoteModel
                 return false;
             }
 
-            Notepad u = obj as Notepad;
+            Chapter u = obj as Chapter;
             if (u == null)
             {
                 return false;
             }
 
-            return u.Name == this.Name;
+            return u.Name == this.Name && u.Owner == this.Owner 
+                && u.CreationDate == this.CreationDate;
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class Picture : Media
+    public class Picture : Media<Picture>
     {
     }
 }
