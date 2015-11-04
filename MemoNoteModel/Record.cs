@@ -25,7 +25,7 @@ namespace MemoNoteModel
                 return false;
             }
 
-            Notepad u = obj as Notepad;
+            Record u = obj as Record;
             if (u == null)
             {
                 return false;

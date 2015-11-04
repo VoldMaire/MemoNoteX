@@ -3,6 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button Click="Button_Click"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox Name="lbNote"
+                 Grid.Row="1"
+                 Margin="10"
+                 ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="2"
+                Margin="20"
+                Click="Button_Click">
+            <TextBlock>
+                Fill list
+            </TextBlock>
+        </Button>
+        <Button Name="btnChangeStrategy"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="20"
+                Click="btnChangeStrategy_Click">
+            <TextBlock>
+                Change strategy
+            </TextBlock>
+        </Button>
+        <TextBox Name="tbSearh" Grid.Column="1" Grid.Row="1" Margin="20"></TextBox>
     </Grid>
 </Window>

@@ -10,10 +10,22 @@ namespace MemoNoteModel
     {
         public User UserOwner { get; set; }
 
+        private ISearchingStrategy m_searchingStrategy = new TagSearchingStrategy();         
+
         public Notepad(string name, User user)
         {
             Name = name;
             UserOwner = user;
+        }
+
+        public void ChangeStrategy(ISearchingStrategy searchingStrategy)
+        {
+            m_searchingStrategy = searchingStrategy;
+        }
+
+        public List<Note> GetSearchResult(object searchKey)
+        {
+            return m_searchingStrategy.GetObject(searchKey);
         }
 
         public override string ToString()
