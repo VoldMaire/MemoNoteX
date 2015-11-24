@@ -56,6 +56,9 @@
     </Compile>
     <Compile Include="Base.cs" />
     <Compile Include="Chapter.cs" />
+    <Compile Include="DataBaseLibrary\ActiveRecord.cs" />
+    <Compile Include="DataBaseLibrary\ClassInfo.cs" />
+    <Compile Include="DataBaseLibrary\DataBaseAttribute.cs" />
     <Compile Include="Media.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Notepad.cs" />

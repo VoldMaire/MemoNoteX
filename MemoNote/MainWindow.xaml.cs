@@ -26,29 +26,29 @@ namespace MemoNote
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnRegistration_Click(object sender, RoutedEventArgs e)
         {
-            User usrVova = new User("Vova", "Pass");
-            Notepad notepad = new Notepad("My notebook", usrVova);
-            for (int i = 0; i < 10; i++)
+            if (tblregauto.Text == "Реєстрація")
             {
-                new Note("#" + i, "cycle1", Convert.ToString(i));
+                Controls.RegControl rgc = new Controls.RegControl();
+                grdControl.Children.Clear();
+                grdControl.Children.Add(rgc);
+                tblregauto.Text = "Авторизація";
             }
-
-            for (int i = 11; i < 20; i++)
+            else
             {
-                new Note("#" + i, "cycle2", Convert.ToString(i));
+                Controls.AutoControl atc = new Controls.AutoControl();
+                grdControl.Children.Clear();
+                grdControl.Children.Add(atc);
+                tblregauto.Text = "Реєстрація";
             }
-
-            notepad.ChangeStrategy(new TagSearchingStrategy());
-            lbNote.ItemsSource = notepad.GetSearchResult(tbSearh.Text);
         }
 
-        private void btnChangeStrategy_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Notepad notepad = Notepad.Objects.Values.ElementAt(0);
-            notepad.ChangeStrategy(new NameSearchingStrategy());
-            lbNote.ItemsSource = notepad.GetSearchResult(tbSearh.Text);
+            Controls.AutoControl atc = new Controls.AutoControl();
+            grdControl.Children.Clear();
+            grdControl.Children.Add(atc);
         }
     }
 }

@@ -1,43 +1,23 @@
 ﻿<Window x:Class="MemoNote.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="525" Loaded="Window_Loaded">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50" ></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <ListBox Name="lbNote"
-                 Grid.Row="1"
-                 Margin="10"
-                 ItemsSource="{Binding}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Button Grid.Row="2"
-                Margin="20"
-                Click="Button_Click">
-            <TextBlock>
-                Fill list
+        <Button Name="btnRegistration" Grid.Row="1" Grid.ColumnSpan="3" FontSize="25" Click="btnRegistration_Click">
+            <TextBlock x:Name="tblregauto" TextAlignment="Center">
+                Реєстрація
             </TextBlock>
         </Button>
-        <Button Name="btnChangeStrategy"
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="20"
-                Click="btnChangeStrategy_Click">
-            <TextBlock>
-                Change strategy
-            </TextBlock>
-        </Button>
-        <TextBox Name="tbSearh" Grid.Column="1" Grid.Row="1" Margin="20"></TextBox>
+        <Grid x:Name="grdControl" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,10,0,40" Grid.RowSpan="2" >
+     </Grid>
     </Grid>
 </Window>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class User : Base<User>
+    public class User : ActiveRecord<User>
     {
         public string Login { get; set; }
 
