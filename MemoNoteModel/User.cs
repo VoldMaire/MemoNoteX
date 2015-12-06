@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MemoNoteModel
+﻿namespace MemoNoteModel
 {
+    [DataBaseClass("User")]
     public class User : ActiveRecord<User>
     {
+        [DataBaseProperty("Name")]
+        public string Name { get; set; }
+
+        [DataBaseProperty("Login")]
         public string Login { get; set; }
 
+        [DataBaseProperty("Password")]
         public string Password { get; set; }
+
+        public User()
+        {
+        }
 
         public User(string login, string password)
         {

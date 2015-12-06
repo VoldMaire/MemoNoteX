@@ -13,5 +13,14 @@ namespace MemoNote
     /// </summary>
     public partial class App : Application
     {
+        private MainWindow loginWindow;
+
+        public void CloseLoginWindow()
+        {
+            if (loginWindow != null)
+            {
+                loginWindow.Close();
+            }
+        }
     }
 }
