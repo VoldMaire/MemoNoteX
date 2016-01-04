@@ -7,19 +7,22 @@ using System.Threading.Tasks;
 namespace MemoNoteModel
 {
     [AttributeUsage (AttributeTargets.Class)]
-    class DataBaseClassAttribute : Attribute
+    public class DataBaseClassAttribute : Attribute
     {
         public string Name { get; set; }
+
         public DataBaseClassAttribute(string name)
         {
             Name = name;
         }
     }
     [AttributeUsage(AttributeTargets.Property)]
-    class DataBasePropertyAttribute : Attribute
+    public class DataBasePropertyAttribute : Attribute
     {
         public string Name { get; set; }
+
         public Type type { get; set; }
+
         public DataBasePropertyAttribute(string name)
         {
             Name = name;

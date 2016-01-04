@@ -25,20 +25,23 @@
 				Height="40"
 				Margin="0,50,0,0"
 				Text="{Binding Path=UserLoginString}"
+                Style="{StaticResource simpleTextBoxStyle}"
                 />
             <TextBox 
                 x:Name="tbPassword"
                 Height="40" 
                 Margin="0,30,0,0"
                 Text="{Binding UserPasswordString}"
+                Style="{StaticResource simpleTextBoxStyle}"
                 />
             <Button
                 x:Name="btnAutorize"
                 Height="50"
                 Margin="0,60,0,0"
                 Command="{Binding Authorization}"
+                Style="{StaticResource simpleButtonStyle}"
                 >
-                <TextBlock FontSize="20" FontFamily="Times new roman"><Run Text="Увійти"/></TextBlock>
+                Увійти
             </Button>
         </StackPanel>
     </Grid>

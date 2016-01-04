@@ -1,39 +1,55 @@
-﻿<Window x:Class="MemoNote.View.MainNoteWindow"
+﻿<Window
+        Name="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="TestWindow" Height="680"  Width="900" WindowState="Maximized">
+        xmlns:Controls="clr-namespace:MemoNote.Controls" x:Class="MemoNote.View.MainNoteWindow"
+        Title="TestWindow" Height="680"  Width="900" WindowState="Maximized" MouseMove="Window_MouseMove">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TabControl Grid.Column="1">
-                <TabItem>
+            <TabControl Grid.Column="1" Style="{StaticResource simpleTabControlStyle}" >
+                <TabItem >
                     <TabItem.Header>
-                        <TextBlock>First</TextBlock>
+                        <TextBlock><Run Text="First"/></TextBlock>
                     </TabItem.Header>
-                    <TabItem.Content>
-                        <Canvas></Canvas>
-                    </TabItem.Content>
+                    <Canvas/>
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock>Second</TextBlock>
+                        <TextBlock><Run Text="Second"/></TextBlock>
                     </TabItem.Header>
-                    <TabItem.Content>
-                        <Canvas></Canvas>
-                    </TabItem.Content>
+                    <Canvas/>
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>
-                        <TextBlock>+</TextBlock>
+                        <TextBlock><Run Text="+"/></TextBlock>
                     </TabItem.Header>
+                    <Canvas x:Name="myCanvas">
+                        <TextBox Name="temp" Canvas.Left="143" Canvas.Top="10" Height="23" Width="151"/>
+                        <TextBox Name="temp2" Style="{StaticResource DraggedTextBoxTemplate}" Height="26" Width="55" Canvas.Left="10" Canvas.Top="10" RenderTransformOrigin="0.5,0.5">
+                            <TextBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-0.479"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </TextBox.RenderTransform>
+                        </TextBox>
+                        <Controls:DragTextBoxControl  Height="26" Width="116" Canvas.Left="14" Canvas.Top="54">
+                            
+                        </Controls:DragTextBoxControl>
+                    </Canvas>
                 </TabItem>
+                <Button Content="Button" Margin="8,15,379,441" Style="{StaticResource dragButtonStyle}"/>
+                <Controls:AutoControl Height="100" Width="100"/>
             </TabControl>
         </Grid>
     </Grid>

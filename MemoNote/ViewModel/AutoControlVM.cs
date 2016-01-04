@@ -19,7 +19,7 @@ namespace MemoNote.ViewModel
             {
                 if (userLoginString == null)
                 {
-                    return "Enter login";
+                    return "admin";//"Enter login";
                 }
 
                 return userLoginString;
@@ -38,7 +38,7 @@ namespace MemoNote.ViewModel
             {
                 if (userPasswordString == null)
                 {
-                    return "Enter password";
+                    return "admin";//"Enter password";
                 }
 
                 return userPasswordString;

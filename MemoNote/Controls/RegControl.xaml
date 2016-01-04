@@ -23,35 +23,40 @@
                 Margin="0,20,0,0"
                 Text="{Binding UserLoginString}"
                 SelectedText=""
-                MouseDoubleClick="tbLogin_MouseDoubleClick">
+                MouseDoubleClick="tbLogin_MouseDoubleClick"
+                Style="{StaticResource simpleTextBoxStyle}">                
             </TextBox>
             <TextBox 
                 Name="tbPassword"
                 Height="40"
                 Margin="0,10,0,0"
                 Text="{Binding UserPasswordString}"
-                MouseDoubleClick="tbLogin_MouseDoubleClick">
+                MouseDoubleClick="tbLogin_MouseDoubleClick"
+                Style="{StaticResource simpleTextBoxStyle}">
             </TextBox>
             <TextBox
                 Name="tbRepeatPassword" 
                 Height="40" 
                 Margin="0,10,0,0"
                 Text="{Binding UserRepeatedPasswordString}"
-                MouseDoubleClick="tbLogin_MouseDoubleClick">
+                MouseDoubleClick="tbLogin_MouseDoubleClick"
+                Style="{StaticResource simpleTextBoxStyle}">
             </TextBox>
             <TextBox 
                 Name="tbName" 
                 Height="40" 
                 Margin="0,10,0,0"
                 Text="{Binding UserNameString}"
-                MouseDoubleClick="tbLogin_MouseDoubleClick">
+                MouseDoubleClick="tbLogin_MouseDoubleClick"
+                Style="{StaticResource simpleTextBoxStyle}">
             </TextBox>
             <Button 
                 x:Name="btnReg"
                 Height="50"
                 Margin="0,10,0,0"
-                Command="{Binding Registration}">
-                <TextBlock FontSize="20" FontFamily="Times new roman">Зареєструватись</TextBlock>
+                Command="{Binding Registration}"
+                Style="{StaticResource simpleButtonStyle}">
+                Зареєструватись
         </Button>
     </StackPanel>
 

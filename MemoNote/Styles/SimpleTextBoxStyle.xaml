@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Controls="clr-namespace:MemoNote.Controls">
+    <Style x:Key="simpleTextBoxStyle" TargetType="TextBox">
+        <Setter Property="BorderBrush" Value="#297acc"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="TextAlignment" Value="Left"></Setter>
+        <Setter Property="FontSize" Value="20"></Setter>
+        <Setter Property="FontFamily" Value="Microsoft Sans Unicode"></Setter>
+    </Style>
+
+    <Style x:Key="UCDragStyle" TargetType="Controls:DragTextBoxControl">
+        <Setter Property="Canvas.Left" Value="{Binding Location.X, RelativeSource={RelativeSource Self}}"></Setter>
+        <Setter Property="Canvas.Top" Value="{Binding Location.Y, RelativeSource={RelativeSource Self}}"></Setter>
+    </Style>
+</ResourceDictionary>

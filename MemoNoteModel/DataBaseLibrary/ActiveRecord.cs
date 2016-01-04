@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class ActiveRecord<T> where T: ActiveRecord<T>
+    public class ActiveRecord<T> where T : ActiveRecord<T>
     {
         [DataBaseProperty("Id")]
         public Guid Id { get; set; }
@@ -24,9 +24,95 @@ namespace MemoNoteModel
         {
             Id = Guid.NewGuid();
             Objects.Add(Id, (T)this);
-            if(Classinfo == null)
+
+            if (Classinfo == null)
+            {
                 FillClassInfo();
+            }
         }
+
+        public static T Find(string field, object value)
+        {
+            string dbConnString = GetConnectionStr();
+            SqlConnection dbConn = new SqlConnection(dbConnString);
+            dbConn.Open();
+            try
+            {
+                SqlCommand dbCommand = dbConn.CreateCommand();
+                dbCommand.CommandText = "SELECT * FROM [" + Classinfo.NameTable + "] WHERE (" + field + "=@" + field + ")";
+                dbCommand.Parameters.Add("@" + field, GetDBType(Classinfo.TypePropereties.ElementAt(Classinfo.NameProperties.IndexOf(field))));
+                dbCommand.Parameters["@" + field].Value = value;
+                SqlDataReader dbReader = dbCommand.ExecuteReader();
+                dbReader.Read();
+                object found = Activator.CreateInstance(Classinfo.TypeClass);
+                T res = (T)found;
+                for (int i = 0; i < dbReader.FieldCount; i++)
+                {
+                    PropertyInfo propinfo = ((T)res).GetType().GetProperty(Classinfo.Properties.ElementAt(i));
+                    if (dbReader[Classinfo.NameProperties.ElementAt(i)] != DBNull.Value)
+                    {
+                        if (dbReader[Classinfo.NameProperties.ElementAt(i)].GetType() == typeof(string))
+                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)].ToString().Trim());
+                        else
+                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)]);
+                    }
+                    else
+                        propinfo.SetValue(found, null);
+                }
+
+                return res;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                dbConn.Close();
+            }
+        }
+
+        public static T Find(string thisfieldname, string tablename, string field, object value)
+        {
+            string dbConnString = GetConnectionStr();
+            SqlConnection dbConn = new SqlConnection(dbConnString);
+            dbConn.Open();
+            try
+            {
+                SqlCommand dbCommand = dbConn.CreateCommand();
+                dbCommand.CommandText = "SELECT * FROM [" + Classinfo.NameTable + "] WHERE "  + thisfieldname + " IN (SELECT " + field + " FROM " + "[" + tablename + "]" + " WHERE " + field + "=@" + field + ")";
+                dbCommand.Parameters.Add("@" + field, GetDBType(Classinfo.TypePropereties.ElementAt(Classinfo.NameProperties.IndexOf(field))));
+                dbCommand.Parameters["@" + field].Value = value;
+                SqlDataReader dbReader = dbCommand.ExecuteReader();
+                dbReader.Read();
+                object found = Activator.CreateInstance(Classinfo.TypeClass);
+                T res = (T)found;
+                for (int i = 0; i < dbReader.FieldCount; i++)
+                {
+                    PropertyInfo propinfo = ((T)res).GetType().GetProperty(Classinfo.Properties.ElementAt(i));
+
+                    if (dbReader[Classinfo.NameProperties.ElementAt(i)] != DBNull.Value)
+                    {
+                        if (dbReader[Classinfo.NameProperties.ElementAt(i)].GetType() == typeof(string))
+                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)].ToString().Trim());
+                        else
+                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)]);
+                    }
+                    else
+                        propinfo.SetValue(found, null);
+                }
+
+                return res;
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
+            finally
+            {
+                dbConn.Close();
+            }
+        }     
 
         public void FillClassInfo()
         {
@@ -75,6 +161,7 @@ namespace MemoNoteModel
                     for (int i = 0; i < dbReader.FieldCount; i++)
                     {
                         PropertyInfo propinfo = ((T)res).GetType().GetProperty(Classinfo.Properties.ElementAt(i));
+
                         if (dbReader["Id"] == DBNull.Value)
                         {
                             if (dbReader[Classinfo.NameProperties.ElementAt(i)].GetType() == typeof(string))
@@ -95,6 +182,7 @@ namespace MemoNoteModel
                     dbReader.Close();
                     dbConn.Close();
                 }
+
                 if (res == null)
                 {
                     SqlCommand dbSaveCommand = dbConn.CreateCommand();
@@ -102,27 +190,34 @@ namespace MemoNoteModel
                     foreach (string prop in Classinfo.NameProperties)
                     {
                         dbSaveCommand.CommandText += prop;
+
                         if (Classinfo.NameProperties.IndexOf(prop) != Classinfo.NameProperties.Count - 1)
                         {
                             dbSaveCommand.CommandText += ", ";
                         }
                     }
+
                     dbSaveCommand.CommandText += " ) VALUES (";
+
                     for (int i = 0; i < Classinfo.NameProperties.Count; i++)
                     {
                         string propprog = Classinfo.Properties.ElementAt(i);
                         string proptable = Classinfo.NameProperties.ElementAt(i);
                         dbSaveCommand.CommandText += "@" + proptable;
+
                         if (i != Classinfo.NameProperties.Count - 1)
                         {
                             dbSaveCommand.CommandText += ", ";
                         }
+
                         dbSaveCommand.Parameters.Add("@" + proptable, GetDBType(Classinfo.TypePropereties.ElementAt(i)));
+
                         if (Classinfo.TypeClass.GetProperty(propprog).GetValue(this) != null)
                             dbSaveCommand.Parameters["@" + proptable].Value = Classinfo.TypeClass.GetProperty(propprog).GetValue(this);
                         else
                             dbSaveCommand.Parameters["@" + proptable].Value = DBNull.Value;
                     }
+
                     dbSaveCommand.CommandText += ")";
                     dbConn.Open();
                     dbSaveCommand.ExecuteNonQuery();
@@ -143,21 +238,21 @@ namespace MemoNoteModel
                                 dbSaveCommand.Parameters["@" + proptable].Value = Classinfo.TypeClass.GetProperty(propprog).GetValue(this);
                             else
                                 dbSaveCommand.Parameters["@" + proptable].Value = DBNull.Value;
+
                             if (Classinfo.NameProperties.IndexOf(proptable) != Classinfo.NameProperties.Count - 2)
                             {
                                 dbSaveCommand.CommandText += ", ";
                             }
                         }
                     }
+
                     dbSaveCommand.CommandText += " WHERE Id=@Id";
                     dbSaveCommand.Parameters.Add("@Id", SqlDbType.UniqueIdentifier);
                     dbSaveCommand.Parameters["@Id"].Value = this.Id;
                     dbConn.Open();
                     dbSaveCommand.ExecuteNonQuery();
                 }
-
             }
-
             catch (Exception)
             {
                 throw new Exception();
@@ -189,101 +284,7 @@ namespace MemoNoteModel
             {
                 dbConn.Close();
             }
-        }
-
-        public static T Find(string field, object value)
-        {
-            string dbConnString = GetConnectionStr();
-            SqlConnection dbConn = new SqlConnection(dbConnString);
-            dbConn.Open();
-            try
-            {
-                SqlCommand dbCommand = dbConn.CreateCommand();
-                dbCommand.CommandText = "SELECT * FROM [" + Classinfo.NameTable + "] WHERE (" + field + "=@" + field + ")";
-                dbCommand.Parameters.Add("@" + field, GetDBType(Classinfo.TypePropereties.ElementAt(Classinfo.NameProperties.IndexOf(field))));
-                dbCommand.Parameters["@" + field].Value = value;
-                SqlDataReader dbReader = dbCommand.ExecuteReader();
-                dbReader.Read();
-                object found = Activator.CreateInstance(Classinfo.TypeClass);
-                T res = (T)found;
-                for (int i = 0; i < dbReader.FieldCount; i++)
-                {
-                    PropertyInfo propinfo = ((T)res).GetType().GetProperty(Classinfo.Properties.ElementAt(i));
-                    if (dbReader[Classinfo.NameProperties.ElementAt(i)] != DBNull.Value)
-                    {
-                        if (dbReader[Classinfo.NameProperties.ElementAt(i)].GetType() == typeof(string))
-                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)].ToString().Trim());
-                        else
-                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)]);
-                    }
-                    else
-                        propinfo.SetValue(found, null);
-                }
-                return res;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            finally
-            {
-                dbConn.Close();
-            }
-        }
-
-        public static T Find(string thisfieldname, string tablename, string field, object value)
-        {
-            string dbConnString = GetConnectionStr();
-            SqlConnection dbConn = new SqlConnection(dbConnString);
-            dbConn.Open();
-            try
-            {
-                SqlCommand dbCommand = dbConn.CreateCommand();
-                dbCommand.CommandText = "SELECT * FROM [" + Classinfo.NameTable + "] WHERE "  + thisfieldname + " IN (SELECT " + field + " FROM " + "[" + tablename + "]" + " WHERE " + field + "=@" + field + ")";
-                dbCommand.Parameters.Add("@" + field, GetDBType(Classinfo.TypePropereties.ElementAt(Classinfo.NameProperties.IndexOf(field))));
-                dbCommand.Parameters["@" + field].Value = value;
-                SqlDataReader dbReader = dbCommand.ExecuteReader();
-                dbReader.Read();
-                object found = Activator.CreateInstance(Classinfo.TypeClass);
-                T res = (T)found;
-                for (int i = 0; i < dbReader.FieldCount; i++)
-                {
-                    PropertyInfo propinfo = ((T)res).GetType().GetProperty(Classinfo.Properties.ElementAt(i));
-                    if (dbReader[Classinfo.NameProperties.ElementAt(i)] != DBNull.Value)
-                    {
-                        if (dbReader[Classinfo.NameProperties.ElementAt(i)].GetType() == typeof(string))
-                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)].ToString().Trim());
-                        else
-                            propinfo.SetValue(found, dbReader[Classinfo.NameProperties.ElementAt(i)]);
-                    }
-                    else
-                        propinfo.SetValue(found, null);
-                }
-                return res;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
-            finally
-            {
-                dbConn.Close();
-            }
-        }
-
-        private  static SqlDbType GetDBType(Type prop)
-        {
-            string type = prop.ToString().Substring(7);
-            switch (type)
-            {
-                case "Int" : return SqlDbType.Int;
-                case "Guid" : return SqlDbType.UniqueIdentifier;
-                case "String" : return SqlDbType.NChar;
-                case "DateTime" : return SqlDbType.DateTime;
-                case "Double" : return SqlDbType.Float;
-                default: return SqlDbType.Binary;
-            }
-        }
+        }   
 
         protected static string GetConnectionStr()
         {
@@ -294,5 +295,19 @@ namespace MemoNoteModel
             connBuilder.Pooling = true;
             return connBuilder.ConnectionString;
         }
+
+        private static SqlDbType GetDBType(Type prop)
+        {
+            string type = prop.ToString().Substring(7);
+            switch (type)
+            {
+                case "Int": return SqlDbType.Int;
+                case "Guid": return SqlDbType.UniqueIdentifier;
+                case "String": return SqlDbType.NChar;
+                case "DateTime": return SqlDbType.DateTime;
+                case "Double": return SqlDbType.Float;
+                default: return SqlDbType.Binary;
+            }
+        }     
     }
 }

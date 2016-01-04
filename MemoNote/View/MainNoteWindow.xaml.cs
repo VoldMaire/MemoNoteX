@@ -21,7 +21,16 @@ namespace MemoNote.View
     {
         public MainNoteWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point PWindow = Mouse.GetPosition(MainWindow);
+            Point PCanvas = Mouse.GetPosition(myCanvas);
+            temp.Text = Convert.ToString(PWindow);
+            temp2.Text = Convert.ToString(PCanvas);
+            temp2.Text = myCanvas.TranslatePoint(new Point(0, 0), MainWindow).ToString();
         }
     }
 }

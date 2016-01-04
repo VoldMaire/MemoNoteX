@@ -3,6 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/SimpleButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/SimpleTextBoxStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/TabItemStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/DragTextBoxTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/DragButtonStyle.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
