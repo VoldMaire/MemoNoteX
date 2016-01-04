@@ -26,10 +26,10 @@ namespace MemoNote.View
 
         private void Window_MouseMove(object sender, MouseEventArgs e)
         {
-            Point PWindow = Mouse.GetPosition(MainWindow);
-            Point PCanvas = Mouse.GetPosition(myCanvas);
-            temp.Text = Convert.ToString(PWindow);
-            temp2.Text = Convert.ToString(PCanvas);
+            Point pWindow = Mouse.GetPosition(MainWindow);
+            Point pCanvas = Mouse.GetPosition(myCanvas);
+            temp.Text = Convert.ToString(pWindow);
+            temp2.Text = Convert.ToString(pCanvas);
             temp2.Text = myCanvas.TranslatePoint(new Point(0, 0), MainWindow).ToString();
         }
     }
