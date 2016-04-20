@@ -6,9 +6,27 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class Notepad : Base<Notepad>
+    [DataBaseClass("User")]
+    public class Notepad : ActiveRecord<Notepad>
     {
-        public User UserOwner { get; set; }
+        [DataBaseProperty("IdUserOwner")]
+        public Guid IdUserOwner { get; set; }
+
+        [DataBaseProperty("Name")]
+        public string Name { get; set; }
+        
+        public User UserOwner 
+        { 
+            get
+            {
+                return User.Find("Id", IdUserOwner);
+            }
+
+            set 
+            {
+                IdUserOwner = value.Id;
+            }
+        }
 
         private ISearchingStrategy m_searchingStrategy = new TagSearchingStrategy();         
 

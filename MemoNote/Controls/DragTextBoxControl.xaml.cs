@@ -22,13 +22,9 @@ namespace MemoNote.Controls
     {
         private int prevLength = 7;
 
-        public Point Location
-        {
-            get
-            {
-                return new Point(0, 0);
-            }
-        }
+        public Point Location;
+
+        private Point CorectionPoint;
 
         public DragTextBoxControl()
         {
@@ -54,24 +50,32 @@ namespace MemoNote.Controls
 
         private void moveElement_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            moveElement.MouseMove += moveElement_MouseMove;
+            moveElement.PreviewMouseMove += moveElement_MouseMove;
             if (!IsEnabled) return;
             e.Handled = true;
             moveElement.CaptureMouse();
+            CorectionPoint = Mouse.GetPosition(this);
         }
 
         private void moveElement_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            moveElement.MouseMove -= moveElement_MouseMove;
+            moveElement.PreviewMouseMove -= moveElement_MouseMove;
             if (!IsEnabled) return;
             e.Handled = true;
-            moveElement.ReleaseMouseCapture();
+            moveElement.ReleaseMouseCapture();           
         }
 
         private void moveElement_MouseMove(object sender, MouseEventArgs e)
         {
-            
-            
+            Window parentWindow = Window.GetWindow(this);
+            Point temp = new Point();
+            temp.X = Mouse.GetPosition(parentWindow).X-View.MainNoteWindow.WinCanvasRelation.X;
+            temp.Y = Mouse.GetPosition(parentWindow).Y-View.MainNoteWindow.WinCanvasRelation.Y;
+            Location = temp;
+            Location.X -= CorectionPoint.X;
+            Location.Y -= CorectionPoint.Y;
+            this.SetValue(Canvas.LeftProperty, Location.X);
+            this.SetValue(Canvas.TopProperty, Location.Y);
         }
     }
 }

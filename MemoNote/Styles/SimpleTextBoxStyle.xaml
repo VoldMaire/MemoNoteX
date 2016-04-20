@@ -9,8 +9,5 @@
         <Setter Property="FontFamily" Value="Microsoft Sans Unicode"></Setter>
     </Style>
 
-    <Style x:Key="UCDragStyle" TargetType="Controls:DragTextBoxControl">
-        <Setter Property="Canvas.Left" Value="{Binding Location.X, RelativeSource={RelativeSource Self}}"></Setter>
-        <Setter Property="Canvas.Top" Value="{Binding Location.Y, RelativeSource={RelativeSource Self}}"></Setter>
-    </Style>
+
 </ResourceDictionary>

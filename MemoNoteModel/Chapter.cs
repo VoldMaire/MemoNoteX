@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    public class Chapter : Base<Chapter>
+    public class Chapter : ActiveRecord<Chapter>
     {
+        public string Name { get; set; }
+
         public DateTime CreationDate { get; set; }
 
-        public User Owner { get; set; }
+        public Notepad Owner { get; set; }
+
+        public Chapter(string name, Notepad owner)
+        {
+            Name = name;
+            Owner = owner;
+            CreationDate = DateTime.Now;
+        }
 
         public override string ToString()
         {

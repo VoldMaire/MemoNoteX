@@ -10,6 +10,10 @@
                 <ResourceDictionary Source="Styles/TabItemStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/DragTextBoxTemplate.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Styles/DragButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/TreeViewStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/PagesListBoxTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/ScrollBarTemplate.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Styles/ComboBoxTemplate.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

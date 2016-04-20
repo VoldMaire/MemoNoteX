@@ -2,31 +2,51 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="simpleButtonStyle" TargetType="Button">
         <Setter Property="FontFamily" Value="Microsoft Sans Unicode"></Setter>
-        <Setter Property="FontSize" Value="25"></Setter>
-        <Setter Property="Background" Value="White"></Setter>
-        <Setter Property="Foreground" Value="#2367ac"></Setter>
-        
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Background" Value="#297acc"/>
+        <Setter Property="BorderBrush" Value="#297acc"/>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderThickness="2" BorderBrush="#297acc">
-                        <Grid>
-                            <ContentPresenter x:Name="myContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" />
-                        </Grid>
-                    </Border>
-                    
+                    <Border Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter x:Name="myContentPresenter"
+                                              Content="{TemplateBinding Content}" 
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0" />
+                    </Border>                    
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#297acc"></Setter>    
-                            <Setter Property="Foreground" Value="White"></Setter>
-                        </Trigger>
-                        
+                            <Setter Property="Background" Value="#d1e0fe"/>
+                            <Setter Property="Foreground" Value="#2367ac"/>
+                        </Trigger>                        
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#769fc9"></Setter>
+                            <Setter Property="Background" Value="#d1e0fe"/>
+                            <Setter Property="BorderBrush" Value="#297acc"/>
+                            <Setter Property="Foreground" Value="#2367ac"/>
+                            <Setter Property="FontSize" Value="24"/>  
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    
+    <Style x:Key="menuButtonStyle" TargetType="Button" BasedOn="{StaticResource simpleButtonStyle}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Panel.ZIndex" Value="1"/>
+                <Setter Property="BitmapEffect">
+                    <Setter.Value>
+                        <DropShadowBitmapEffect Color="Gray"
+                                                Direction="300"
+                                                ShadowDepth="3"
+                                                Softness="1"
+                                                Opacity="0.8"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

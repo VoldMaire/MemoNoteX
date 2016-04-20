@@ -14,8 +14,7 @@
         </Grid.ColumnDefinitions>
         <Button Name="btnRegistration"
                 Grid.Row="1"
-                Grid.ColumnSpan="3" 
-                FontSize="25"
+                Grid.ColumnSpan="3"
                 Click="btnRegistration_Click"
                 Style="{StaticResource simpleButtonStyle}">
             <TextBlock x:Name="tblregauto" TextAlignment="Center">
