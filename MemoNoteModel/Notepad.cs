@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoNoteModel
 {
-    [DataBaseClass("User")]
+    [DataBaseClass("Notepad")]
     public class Notepad : ActiveRecord<Notepad>
     {
         [DataBaseProperty("IdUserOwner")]
@@ -28,7 +28,11 @@ namespace MemoNoteModel
             }
         }
 
-        private ISearchingStrategy m_searchingStrategy = new TagSearchingStrategy();         
+        private ISearchingStrategy m_searchingStrategy = new TagSearchingStrategy();
+
+        public Notepad()
+        {
+        }
 
         public Notepad(string name, User user)
         {

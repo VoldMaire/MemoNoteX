@@ -1,7 +1,12 @@
 ﻿<Window x:Class="MemoNote.View.NewNotebookWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MemoNote.ViewModel"
         Title="NewNotebookWindow" Height="250" Width="400">
+    <Window.DataContext>
+        <local:NewNotebookWindwowVM></local:NewNotebookWindwowVM>
+    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -20,6 +25,7 @@
             Grid.Row="1"
             Margin="5"
             FontSize="35"
+            Text="{Binding NotepadNameString}"
             Style="{StaticResource simpleTextBoxStyle}">
         </TextBox>
         <Grid
@@ -32,6 +38,7 @@
             Name="btnAddmit"
             Grid.Column="0"
             Margin="5,30,0 30"
+            Command="{Binding AddNotepad}"
             Style="{StaticResource menuButtonStyle}">
             Додати
         </Button>
