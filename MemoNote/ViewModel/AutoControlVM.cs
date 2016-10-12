@@ -31,7 +31,7 @@ namespace MemoNote.ViewModel
                 OnPropertyChanged("UserLoginString");
             }
         }
-
+//qqqqqqqq
         public string UserPasswordString
         {
             get
